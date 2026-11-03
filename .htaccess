@@ -1,0 +1,7 @@
+# Local XAMPP: send http://localhost/logistics.binabba.com/... to the Laravel public folder
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /logistics.binabba.com/
+    RewriteCond %{REQUEST_URI} !/public/
+    RewriteRule ^(.*)$ public/$1 [R=302,L]
+</IfModule>
