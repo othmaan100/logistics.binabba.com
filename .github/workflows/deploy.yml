@@ -1,0 +1,27 @@
+name: Deploy to FTP Server
+
+on:
+  push:
+    branches:
+      - main  # Change this to 'master' if your default branch is master
+
+jobs:
+  web-deploy:
+    name: FTP Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Sync files to FTP server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.binabba.com
+          username: othmaan@logistics.binabba.com
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          # Set to true if your server requires explicit FTPS over port 21
+          security: strict 
+          # Optional: specify server-side destination directory if your web files 
+          # need to go into a specific public folder (e.g., /public_html or /www)
+          # server-dir: /public_html/
