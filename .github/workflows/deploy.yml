@@ -16,7 +16,7 @@ jobs:
       - name: Install Zip tool
         run: sudo apt-get install -y zip
 
-      - name: Create project archive (excluding heavy & local-only files)
+      - name: Create project archive
         run: |
           zip -r deployment.zip . \
             -x "*.git*" \
@@ -35,8 +35,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           security: strict
-          # Upload only the single zip archive file instead of thousands of individual files
           local-dir: ./
           server-dir: ./
+          # Forces the action to ONLY sync/upload the single zip file
           include: |
             deployment.zip
