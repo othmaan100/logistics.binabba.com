@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           security: strict
-          # Exclude heavy directories and Laravel runtime storage/vendor files
+          # Exclude vendor, storage, local environment, tests, and git files
           exclude: |
             **/.git*
             **/.git*/**
@@ -30,3 +30,4 @@ jobs:
             **/storage/**
             **/tests/**
             **/.env
+            **/bootstrap/cache/*
