@@ -20,12 +20,13 @@ jobs:
           username: othmaan@logistics.binabba.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          # Force explicit FTPS over FTP
           security: strict
-          # Exclude test files, git config, and local workflow files from uploading
+          # Exclude heavy directories and Laravel runtime storage/vendor files
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/vendor/**
+            **/storage/**
             **/tests/**
-            **/storage/*.sqlite
+            **/.env
