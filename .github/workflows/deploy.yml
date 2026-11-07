@@ -3,7 +3,7 @@ name: Deploy to FTP Server
 on:
   push:
     branches:
-      - main  # Change this to 'master' if your default branch is master
+      - main
 
 jobs:
   web-deploy:
@@ -20,8 +20,12 @@ jobs:
           username: othmaan@logistics.binabba.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          # Set to true if your server requires explicit FTPS over port 21
-          security: strict 
-          # Optional: specify server-side destination directory if your web files 
-          # need to go into a specific public folder (e.g., /public_html or /www)
-          # server-dir: /public_html/
+          # Force explicit FTPS over FTP
+          security: strict
+          # Exclude test files, git config, and local workflow files from uploading
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            **/storage/*.sqlite
