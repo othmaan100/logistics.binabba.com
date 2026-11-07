@@ -13,19 +13,17 @@ jobs:
       - name: Get latest code
         uses: actions/checkout@v4
 
-      - name: Install Zip tool
-        run: sudo apt-get install -y zip
-
       - name: Create project archive
         run: |
-          zip -r deployment.zip . \
+          mkdir -p deploy
+          zip -r deploy/deployment.zip . \
             -x "*.git*" \
             -x "node_modules/*" \
             -x "vendor/*" \
             -x "storage/*" \
             -x "tests/*" \
             -x ".env" \
-            -x "deployment.zip"
+            -x "deploy/*"
 
       - name: Upload Zip to FTP Server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -34,7 +32,8 @@ jobs:
           username: othmaan@logistics.binabba.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          security: strict
-          # Tell the action to look specifically in the current folder for the zip file
-          local-dir: ./
+          protocol: ftps
+          security: loose
+          local-dir: ./deploy/
           server-dir: ./
+          timeout: 120000
