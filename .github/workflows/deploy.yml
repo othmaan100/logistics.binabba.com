@@ -1,4 +1,4 @@
-name: Deploy to FTP Server
+name: Deploy to FTP Server via Zip
 
 on:
   push:
@@ -7,13 +7,27 @@ on:
 
 jobs:
   web-deploy:
-    name: FTP Deployment
+    name: Deployment
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
         uses: actions/checkout@v4
 
-      - name: Sync files to FTP server
+      - name: Install Zip tool
+        run: sudo apt-get install -y zip
+
+      - name: Create project archive (excluding heavy & local-only files)
+        run: |
+          zip -r deployment.zip . \
+            -x "*.git*" \
+            -x "node_modules/*" \
+            -x "vendor/*" \
+            -x "storage/*" \
+            -x "tests/*" \
+            -x ".env" \
+            -x "deployment.zip"
+
+      - name: Upload Zip to FTP Server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.binabba.com
@@ -21,13 +35,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           security: strict
-          # Exclude vendor, storage, local environment, tests, and git files
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/vendor/**
-            **/storage/**
-            **/tests/**
-            **/.env
-            **/bootstrap/cache/*
+          # Upload only the single zip archive file instead of thousands of individual files
+          local-dir: ./
+          server-dir: ./
+          include: |
+            deployment.zip
