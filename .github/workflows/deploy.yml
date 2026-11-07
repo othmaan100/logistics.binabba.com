@@ -35,8 +35,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           security: strict
+          # Tell the action to look specifically in the current folder for the zip file
           local-dir: ./
           server-dir: ./
-          # Forces the action to ONLY sync/upload the single zip file
-          include: |
-            deployment.zip
