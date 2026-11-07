@@ -1,9 +1,0 @@
-[02-Jan-2025 19:01:32 UTC] PHP Warning:  require(/home/binabbac/public_html/logistics2.binabba.com/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/binabbac/public_html/logistics2.binabba.com/index.php on line 13
-[02-Jan-2025 19:01:32 UTC] PHP Warning:  require(/home/binabbac/public_html/logistics2.binabba.com/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/binabbac/public_html/logistics2.binabba.com/index.php on line 13
-[02-Jan-2025 19:01:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/binabbac/public_html/logistics2.binabba.com/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/binabbac/public_html/logistics2.binabba.com/index.php:13
-Stack trace:
-#0 {main}
-  thrown in /home/binabbac/public_html/logistics2.binabba.com/index.php on line 13
-[02-Jan-2025 19:02:38 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.31. in /home/binabbac/public_html/logistics2.binabba.com/BinAbba/vendor/composer/platform_check.php on line 24
-[02-Jan-2025 19:05:38 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.31. in /home/binabbac/public_html/logistics2.binabba.com/BinAbba/vendor/composer/platform_check.php on line 24
-[11-Jan-2025 18:22:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/binabbac/public_html/logistics2.binabba.com/BinAbba/vendor/dompdf/dompdf/src/Css/Style.php on line 1524
