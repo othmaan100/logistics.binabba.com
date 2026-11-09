@@ -61,7 +61,6 @@ Route::middleware(['auth',IsAdmin::class])->group(function () {
     Route::post('/users/create', [UserController::class, 'storeuser'])->name('storeuser');
     Route::get('/users/{id}/deactivate',[UserController::class,'deactivate'])->name('users.deactivate');
     Route::get('/users/{id}/activate', [UserController::class, 'activate'])->name('users.activate');
-    Route::get('/users/{id}/activate', [UserController::class, 'activate'])->name('users.activate');
     Route::put('/users/{id}/password_update',[UserController::class, 'password_update'])->name('users.pupdate');
 
 
@@ -70,11 +69,8 @@ Route::middleware(['auth',IsAdmin::class])->group(function () {
     ]);
     //Route::get('/clients/pdf','ClientController@indexpdf')->name('clients.indexpdf');
     //Route::get('admin/clients', [ClientController::class, 'index'])->name('clients');
-    Route::resource('expenses', ExpensesController::class);
+    //Route::resource('expenses', ExpensesController::class);
     Route::resource('admin-trucks', TruckController::class)->except([
-        'destroy'
-    ]);
-    Route::resource('admin-fuelDebt', FuelDebtController::class)->except([
         'destroy'
     ]);
     Route::resource('admin-drivers',DriversController::class)->except([
@@ -213,8 +209,6 @@ Route::middleware(['auth', IsStaff::class])->group(function () {
     Route::get('/payments/edit/{payment}/', [StaffController::class, 'payments_edit'])->name('payments.edit');
     Route::put('/payments/update/{payment}/', [StaffController::class, 'payments_update'])->name('payments.update');
     Route::post('/payments/destroy', [StaffController::class, 'payments_destroy'])->name('payments.destroy');
-    Route::get('/payments/cpdf',[StaffController::class,'payments_indexcpdf'])->name('payments.indexcpdf');
-    Route::get('/payments/pdf',[StaffController::class,'payments_indexpdf'])->name('payments.indexpdf');
 
 
     Route::get('/expenses', [StaffController::class, 'expenses_index'])->name('expenses.index');
@@ -234,8 +228,6 @@ Route::middleware(['auth', IsStaff::class])->group(function () {
     Route::get('/fuelDebts/edit/{expense}/', [StaffController::class, 'fuelDebt_edit'])->name('fuelDebts.edit');
     Route::put('/fuelDebts/update/{expense}/', [StaffController::class, 'fuelDebt_update'])->name('fuelDebts.update');
     Route::post('/fuelDebts/destroy', [StaffController::class, 'fuelDebt_destroy'])->name('fuelDebts.destroy');
-    Route::get('/fuelDebt/{id}/pdf',[StaffController::class, 'indexpdf'])->name('fuelDebt.indexpdf');
-    Route::get('/fuelDebt/{id}/ppdf',[StaffController::class, 'indexppdf'])->name('fuelDebt.indexppdf');
     Route::get('fuelDebts/{id}/cdebt',[StaffController::class, 'cdebt'])->name('fuelDebts.cdebt');
     Route::get('fuelDebts/{id}/payment',[StaffController::class, 'payment'])->name('fuelDebts.payment');
     Route::post('fuelDebts/store_payment',[StaffController::class, 'store_payment'])->name('fuelDebts.pstore');
@@ -289,12 +281,11 @@ Route::middleware(['auth', IsStaff::class])->group(function () {
     // Route::get('/drivers/pdf','DriversController@indexpdf')->name('drivers.indexpdf');
     Route::get('/clients/pdf',[StaffController::class, 'Client_indexpdf'])->name('clients.indexpdf');
     //Route::get('/trucks/pdf','TruckController@indexpdf')->name('trucks.indexpdf');
-     Route::get('/payments/cpdf',[PaymentController::class,'indexcpdf'])->name('payments.indexcpdf');
-     Route::get('/payments/pdf',[PaymentController::class,'indexpdf'])->name('payments.indexpdf');
-     Route::get('/fuelDebt/pdf/{id}', [FuelDebtController::class, 'indexpdf'])->name('fuelDebt.indexpdf');
+    Route::get('/payments/cpdf',[PaymentController::class,'indexcpdf'])->name('payments.indexcpdf');
+    Route::get('/payments/pdf',[PaymentController::class,'indexpdf'])->name('payments.indexpdf');
+    Route::get('/fuelDebt/pdf/{id}', [FuelDebtController::class, 'indexpdf'])->name('fuelDebt.indexpdf');
     Route::get('/fuelDebt/ppdf/{id}', [FuelDebtController::class, 'indexppdf'])->name('fuelDebt.indexppdf');
     
-    Route::get('/clients/transactions/pdf/{id}',[ClientController::class, 'transactionspdf'])->name('clients.transactionspdf');
     Route::get('admin-stock/stocks_assignPDF', [StockController::class, 'stocks_assignPDF'])->name('stocks_assignPDF');
 
 
