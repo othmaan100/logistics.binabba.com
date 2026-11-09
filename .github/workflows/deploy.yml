@@ -1,39 +1,76 @@
-name: Deploy to FTP Server via Zip
+name: Deploy via SSH
 
 on:
   push:
     branches:
       - main
 
+env:
+  APP_DIR: /home/binabbac/public_html/logistics.binabba.com
+  SERVER_PHP: /opt/cpanel/ea-php82/root/usr/bin/php
+
 jobs:
-  web-deploy:
-    name: Deployment
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
         uses: actions/checkout@v4
 
+      - name: Set up PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Build frontend assets (if using Vite)
+        run: |
+          if [ -f vite.config.js ] || [ -f vite.config.ts ]; then
+            npm ci || npm install
+            npm run build
+          fi
+
       - name: Create project archive
         run: |
           mkdir -p deploy
-          zip -r deploy/deployment.zip . \
+          zip -rq deploy/deployment.zip . \
             -x "*.git*" \
             -x "node_modules/*" \
-            -x "vendor/*" \
             -x "storage/*" \
             -x "tests/*" \
             -x ".env" \
             -x "deploy/*"
 
-      - name: Upload Zip to FTP Server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload zip
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ftp.binabba.com
-          username: othmaan@logistics.binabba.com
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftps
-          security: loose
-          local-dir: ./deploy/
-          server-dir: ./
-          timeout: 120000
+          host: binabba.com
+          username: binabbac
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          source: deploy/deployment.zip
+          target: ${{ env.APP_DIR }}
+          strip_components: 1
+
+      - name: Unzip and run Laravel setup
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: binabba.com
+          username: binabbac
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            set -e
+            PHP=${{ env.SERVER_PHP }}
+            cd ${{ env.APP_DIR }}
+            unzip -oq deployment.zip
+            rm deployment.zip
+            mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public bootstrap/cache
+            if [ ! -f .env ]; then echo "ERROR: .env missing on server"; exit 1; fi
+            $PHP artisan migrate --force
+            $PHP artisan storage:link || true
+            $PHP artisan config:cache
+            $PHP artisan route:cache
+            $PHP artisan view:cache
+            echo "Deployed successfully"
