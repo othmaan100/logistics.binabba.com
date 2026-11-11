@@ -1,7 +1,28 @@
-# Local XAMPP: send http://localhost/logistics.binabba.com/... to the Laravel public folder
 <IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
     RewriteEngine On
-    RewriteBase /logistics.binabba.com/
-    RewriteCond %{REQUEST_URI} !/public/
-    RewriteRule ^(.*)$ public/$1 [R=302,L]
+
+    # Local XAMPP (http://localhost/logistics.binabba.com/...): send everything to the public folder
+    RewriteCond %{REQUEST_URI} ^/logistics\.binabba\.com(/|$)
+    RewriteCond %{REQUEST_URI} !^/logistics\.binabba\.com/public/
+    RewriteRule ^(.*)$ /logistics.binabba.com/public/$1 [R=302,L]
+
+    # Live server (https://logistics.binabba.com/...): standard Laravel front-controller rules
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 </IfModule>
