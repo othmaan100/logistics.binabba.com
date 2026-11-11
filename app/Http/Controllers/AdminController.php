@@ -8,6 +8,7 @@ use App\Models\Stock;
 use App\Models\Expense;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Services\TruckPerformance;
 
 use Illuminate\Http\Request;
 
@@ -92,9 +93,10 @@ class AdminController extends Controller
 
         $deliveredGoods = count(Good::whereNotNull('good_date_of_delivery')->get());
 
-  
+        $truckPerformance = TruckPerformance::all();
+
     return view('admin.dashboard', compact('total_funds','funds','totalFunds_this_month','totalfundsToday','usernumb',
-    'total_expenses','totalExpenses_this_month','totalExpensesToday','inactiveusers','stock','undeliveredGoods','deliveredGoods','goodassignment_this_month'));
+    'total_expenses','totalExpenses_this_month','totalExpensesToday','inactiveusers','stock','undeliveredGoods','deliveredGoods','goodassignment_this_month','truckPerformance'));
          
     }
 

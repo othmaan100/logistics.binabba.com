@@ -19,6 +19,7 @@ use App\Models\FuelDebt;
 use PDF;
 use NumberToWords\NumberToWords;
 use Illuminate\View\View;
+use App\Services\TruckPerformance;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -96,11 +97,10 @@ class StaffController extends Controller
 
         $deliveredGoods = count(Good::whereNotNull('good_date_of_delivery')->get());
 
-  
-    
-  
+        $truckPerformance = TruckPerformance::all();
+
     return view('staff.dashboard', compact('total_funds','funds','totalFunds_this_month','totalfundsToday','usernumb',
-    'total_expenses','totalExpenses_this_month','totalExpensesToday','inactiveusers','stock','undeliveredGoods','deliveredGoods','goodassignment_this_month'));
+    'total_expenses','totalExpenses_this_month','totalExpensesToday','inactiveusers','stock','undeliveredGoods','deliveredGoods','goodassignment_this_month','truckPerformance'));
          
     }
 
@@ -537,9 +537,9 @@ class StaffController extends Controller
 
         
         //return $total_commission;
-         $total_road_expenses= $TG->sum('road_expenses'); 
+         $total_road_expenses= $TG->sum(fn ($g) => (float) $g->road_expenses); 
          
-         $total_commission= $TG->sum('commission'); 
+         $total_commission= $TG->sum(fn ($g) => (float) $g->commission); 
 
          $total_diesel_cost = DB::table('tbl_good')
                                 ->join('trucks', 'trucks.id', '=', 'tbl_good.truck_id')
@@ -598,8 +598,8 @@ class StaffController extends Controller
          $total_cost = $TG->sum('good_cost'); 
 
 
-         $total_road_expenses= $TG->sum('road_expenses'); 
-         $total_commission= $TG->sum('commission'); 
+         $total_road_expenses= $TG->sum(fn ($g) => (float) $g->road_expenses); 
+         $total_commission= $TG->sum(fn ($g) => (float) $g->commission); 
 
          $total_diesel_cost = DB::table('tbl_good')
                                 ->join('trucks', 'trucks.id', '=', 'tbl_good.truck_id')

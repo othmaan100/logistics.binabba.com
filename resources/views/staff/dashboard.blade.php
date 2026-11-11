@@ -54,4 +54,6 @@
     </div>
 </div>
 
+<x-truck-performance :trucks="$truckPerformance" operations-route="trucks.operations" />
+
 @endsection
