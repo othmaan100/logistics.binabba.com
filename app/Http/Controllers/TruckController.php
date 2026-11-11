@@ -191,9 +191,9 @@ class TruckController extends Controller
 
         
         //return $total_commission;
-         $total_road_expenses= $TG->sum('road_expenses'); 
+         $total_road_expenses= $TG->sum(fn ($g) => (float) $g->road_expenses); 
          
-         $total_commission= $TG->sum('commission'); 
+         $total_commission= $TG->sum(fn ($g) => (float) $g->commission); 
 
          $total_diesel_cost = DB::table('tbl_good')
                                 ->join('trucks', 'trucks.id', '=', 'tbl_good.truck_id')
@@ -252,8 +252,8 @@ class TruckController extends Controller
          $total_cost = $TG->sum('good_cost'); 
 
 
-         $total_road_expenses= $TG->sum('road_expenses'); 
-         $total_commission= $TG->sum('commission'); 
+         $total_road_expenses= $TG->sum(fn ($g) => (float) $g->road_expenses); 
+         $total_commission= $TG->sum(fn ($g) => (float) $g->commission); 
 
          $total_diesel_cost = DB::table('tbl_good')
                                 ->join('trucks', 'trucks.id', '=', 'tbl_good.truck_id')

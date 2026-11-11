@@ -616,3 +616,19 @@ table.dataTable thead > tr > th.sorting_asc:before, table.dataTable thead > tr >
 .scroll-to-top:hover { background: var(--brand-700); }
 hr { border-top-color: var(--line); }
 img.img-thumbnail { border-color: var(--line); border-radius: var(--radius-sm); }
+
+/* Truck performance (dashboards) */
+.perf-table td { white-space: nowrap; padding: .7rem .6rem; }
+.perf-table thead th { white-space: normal; padding: .6rem; line-height: 1.3; vertical-align: bottom; }
+.perf-bar { height: .45rem; border-radius: 999px; background: var(--line-2); overflow: hidden; }
+.perf-bar span { display: block; height: 100%; border-radius: inherit; background: var(--brand); }
+.perf-bar.perf-warning span { background: var(--warning); }
+.perf-bar.perf-danger span { background: var(--danger); }
+.perf-amount { font-weight: 600; font-variant-numeric: tabular-nums; }
+.perf-amount.perf-success { color: var(--brand-700); }
+.perf-amount.perf-warning { color: #9a6a0c; }
+.perf-amount.perf-danger { color: var(--danger); }
+.perf-truck { font-weight: 600; color: var(--ink); }
+.perf-truck i { font-size: .65rem; color: var(--brand); opacity: 0; margin-left: .15rem; transition: opacity .15s, transform .15s; }
+.perf-truck:hover { color: var(--brand-700); text-decoration: none; }
+.perf-truck:hover i { opacity: 1; transform: translateX(2px); }
