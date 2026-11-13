@@ -5,7 +5,7 @@
 <div class="welcome-banner">
     <div>
         <h2>Good {{ now()->hour < 12 ? 'morning' : (now()->hour < 17 ? 'afternoon' : 'evening') }}, {{ \Illuminate\Support\Str::title(strtolower(strtok(\Auth::user()->fullName, ' '))) }}</h2>
-        <p>Here is how Bin-Abba Logistics is doing today.</p>
+        <p>Here is how {{ $organization?->short_name ?? 'the business' }} is doing today.</p>
     </div>
     <div class="welcome-actions">
         <a href="{{ url('admin-goods/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> New goods</a>

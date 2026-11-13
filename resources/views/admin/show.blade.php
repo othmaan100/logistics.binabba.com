@@ -17,7 +17,7 @@
             
   </div>
   <div class="card-body">
-  <img src="{{asset('imgs/invoiceheader.png')}}" alt="">
+  <x-org-letterhead />
      <div class="row">
       
 <br>

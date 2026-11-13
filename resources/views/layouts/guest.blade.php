@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Sign in · BinAbba Logistics</title>
-        <link rel="icon" href="{{ asset('images/binabbalogo.png') }}" type="image/png">
+        <title>@yield('guest-title', 'Sign in') · {{ $organization?->short_name ?? 'Logistics' }}</title>
+        @if ($organization?->logo_path)<link rel="icon" href="{{ $organization->logoUrl() }}">@endif
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -52,7 +52,9 @@
             .auth-main { display: flex; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; background: #fff; }
             .auth-card { width: 100%; max-width: 400px; }
             .auth-card .auth-mobile-logo { display: none; margin-bottom: 2rem; }
-            .auth-card .auth-mobile-logo img { height: 40px; }
+            .auth-card .auth-mobile-logo img { height: 40px; max-width: 160px; object-fit: contain; }
+            .auth-logo .mark img { height: 32px; max-width: 120px; object-fit: contain; }
+            .org-logo-fallback { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: #ecf6f2; color: #13795b; }
             .auth-card h1 { color: var(--ink); font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; margin: 0 0 .4rem; }
             .auth-card .lead { color: var(--muted); font-size: .92rem; margin: 0 0 2rem; }
 
@@ -105,13 +107,13 @@
         <div class="auth">
             <aside class="auth-aside">
                 <a class="auth-logo" href="{{ url('/') }}">
-                    <span class="mark"><img src="{{ asset('images/binabbalogo.png') }}" alt="BinAbba"></span>
-                    <strong>BinAbba Logistics</strong>
+                    <span class="mark"><x-org-logo /></span>
+                    <strong>{{ $organization?->short_name ?? 'Logistics' }}</strong>
                 </a>
 
                 <div class="auth-pitch">
                     <h2>Every truck, trip and naira in one place.</h2>
-                    <p>Manage clients, goods, drivers, payments and expenses for Bin-Abba Nig. Ltd. from a single, simple workspace.</p>
+                    <p>Manage clients, goods, drivers, payments and expenses for {{ $organization?->name ?? 'your organization' }} from a single, simple workspace.</p>
                     <ul class="auth-points">
                         <li><i class="fas fa-truck"></i> Fleet, drivers and trip operations</li>
                         <li><i class="fas fa-money-bill-wave"></i> Payments, expenses and fuel debts</li>
@@ -119,13 +121,13 @@
                     </ul>
                 </div>
 
-                <small>&copy; {{ date('Y') }} Bin-Abba Nig. Ltd.</small>
+                <small>&copy; {{ date('Y') }} {{ $organization?->name ?? 'Logistics Management' }}</small>
             </aside>
 
             <main class="auth-main">
                 <div class="auth-card">
                     <div class="auth-mobile-logo">
-                        <img src="{{ asset('images/binabbalogo.png') }}" alt="BinAbba">
+                        <x-org-logo />
                     </div>
                     {{ $slot }}
                 </div>

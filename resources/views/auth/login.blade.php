@@ -13,7 +13,7 @@
             <label for="email">Email address</label>
             <div class="auth-input">
                 <i class="far fa-envelope"></i>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@binabba.com"
+                <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@example.com"
                     required autofocus autocomplete="username">
             </div>
             @error('email')

@@ -33,8 +33,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $customTitle ?: $pageTitle }} · BinAbba Logistics</title>
-    <link rel="icon" href="{{ asset('images/binabbalogo.png') }}" type="image/png">
+    <title>{{ $customTitle ?: $pageTitle }} · {{ $organization?->short_name ?? 'Logistics' }}</title>
+    @if ($organization?->logo_path)<link rel="icon" href="{{ $organization->logoUrl() }}">@endif
 
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,9 +52,9 @@
         <ul class="navbar-nav sidebar sidebar-light app-sidebar accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center" href="{{ $homeUrl }}">
-                <img src="{{ asset('images/binabbalogo.png') }}" alt="BinAbba">
+                <x-org-logo />
                 <div class="brand-text">
-                    <strong>BinAbba</strong>
+                    <strong>{{ $organization?->short_name ?? 'Logistics' }}</strong>
                     <small>{{ $panelName }}</small>
                 </div>
             </a>
@@ -165,7 +165,7 @@
 
             <footer class="sticky-footer app-footer">
                 <div class="copyright d-flex flex-wrap justify-content-between">
-                    <span>&copy; {{ date('Y') }} Bin-Abba Nig. Ltd. · Logistics Management</span>
+                    <span>&copy; {{ date('Y') }} {{ $organization?->name ?? 'Logistics' }} · Logistics Management</span>
                     <span>Developed by <strong>HORAIZON TECH</strong></span>
                 </div>
             </footer>
@@ -187,7 +187,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">You will be signed out of your BinAbba session.</div>
+                <div class="modal-body">You will be signed out of {{ $organization?->short_name ?? 'the system' }}.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <form method="POST" action="{{ route('logout') }}" class="m-0">

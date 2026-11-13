@@ -13,6 +13,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TruckLocationController;
+use App\Http\Controllers\OrganizationController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -146,6 +147,9 @@ Route::middleware(['auth',IsAdmin::class])->group(function () {
     Route::get('/admin-trucks/{id}/operations',[TruckController::class, 'operations'])->name('admin-trucks.operations');
     Route::get('/admin-trucks/{id}/operationspdf',[TruckController::class, 'operationspdf'])->name('admin-trucks.operationspdf');
     Route::get('/admin-trucks/{id}/location', [TruckLocationController::class, 'admin'])->name('admin-trucks.location');
+
+    Route::get('/admin-organization', [OrganizationController::class, 'edit'])->name('organization.edit');
+    Route::put('/admin-organization', [OrganizationController::class, 'update'])->name('organization.update');
 
   
      
@@ -293,6 +297,10 @@ Route::middleware(['auth', IsStaff::class])->group(function () {
 
 });
 
+
+// First-run organization setup (see EnsureOrganizationIsSetUp)
+Route::get('/setup', [OrganizationController::class, 'setup'])->name('setup');
+Route::post('/setup', [OrganizationController::class, 'storeSetup'])->name('setup.store');
 
 Route::get('/access-denied', function () {
     return view('errors.denied');

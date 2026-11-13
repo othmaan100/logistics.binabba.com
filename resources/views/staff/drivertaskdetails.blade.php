@@ -38,7 +38,7 @@
  
   <div class="card-body">
       <div class="row justify-content-md-center">
-    <img src="{{asset('imgs/invoiceheader.png')}}" alt="">
+    <x-org-letterhead />
 </div> 
 <hr class="my-4"/> 
 <div class="offset-md-4 ">

@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Send admins to the first-run setup until the organization's details are saved
+        $middleware->web(append: \App\Http\Middleware\EnsureOrganizationIsSetUp::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // GPS trackers rarely send "Accept: application/json"; answer /api errors in JSON anyway

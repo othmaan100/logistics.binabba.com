@@ -35,7 +35,7 @@
  
   <div >
    
- <img src="{{asset('imgs/invoiceheader.png')}}" width="100%" height="170px" alt="">
+ <x-org-letterhead pdf />
 <hr > 
 </div>
     <div >

@@ -47,7 +47,7 @@
 </div>
  
   <div class="card-body">
-   <img src="{{asset('imgs/invoiceheader.png')}}" alt="">
+   <x-org-letterhead />
       <h4 class="text-center font-weight-bold">Client's Transaction History</h4>
       <hr>
     <div class="row">

@@ -48,6 +48,7 @@
             ['All Users', url('users')],
         ]],
         ['label' => 'Activity Log', 'icon' => 'fa-history', 'url' => url('activity-logs'), 'match' => ['activity-logs*']],
+        ['label' => 'Organization', 'icon' => 'fa-building', 'url' => url('admin-organization'), 'match' => ['admin-organization*']],
     ];
 @endphp
 @extends('layouts.panel')

@@ -18,3 +18,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Logos and letterheads uploaded through the organization setup
+/public/uploads/organization/
+/public/Uploads/organization/

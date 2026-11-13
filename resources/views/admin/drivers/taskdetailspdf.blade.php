@@ -46,18 +46,7 @@
   </style>
 </head>
 <body>
-  <div class="banner">
-      
-       <img src="{{$header}}" height="95px" width="100%" >
-    <!--<h1>Bin-Abba Nigeria Limited</h1>-->
-    <!--<p>RC No. 1308745</p>-->
-    <!--<p>No. 47, Maganda Road Kano</p>-->
-    <!--<div class="contact-info">-->
-    <!--  <p>Phone: 08034942000, 08026982000, 08092271000</p>-->
-    <!--  <p>Email: binabba@gmail.com, info@binabba.com</p>-->
-     
-    </div>
-  </div>
+  <x-org-letterhead pdf />
 
   <!-- Client List Section -->
   <div>

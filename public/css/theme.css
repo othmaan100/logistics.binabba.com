@@ -70,7 +70,8 @@ a:hover { color: var(--brand-700); }
     gap: .65rem;
     text-transform: none;
 }
-.app-sidebar .sidebar-brand img { height: 34px; width: auto; }
+.app-sidebar .sidebar-brand img { height: 34px; width: auto; max-width: 72px; object-fit: contain; }
+.org-logo-fallback { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 9px; background: var(--brand-50); color: var(--brand); font-size: .95rem; flex-shrink: 0; }
 .app-sidebar .brand-text { line-height: 1.15; text-align: left; }
 .app-sidebar .brand-text strong { display: block; color: var(--ink); font-size: .95rem; font-weight: 700; letter-spacing: .01em; }
 .app-sidebar .brand-text small { color: var(--muted); font-size: .7rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
@@ -632,3 +633,39 @@ img.img-thumbnail { border-color: var(--line); border-radius: var(--radius-sm); 
 .perf-truck i { font-size: .65rem; color: var(--brand); opacity: 0; margin-left: .15rem; transition: opacity .15s, transform .15s; }
 .perf-truck:hover { color: var(--brand-700); text-decoration: none; }
 .perf-truck:hover i { opacity: 1; transform: translateX(2px); }
+
+/* Organization setup and settings */
+.setup-page { background: var(--canvas); min-height: 100vh; }
+.setup-wrap { max-width: 880px; margin: 0 auto; padding: 2.5rem 1rem 3rem; }
+.setup-narrow { max-width: 520px; padding-top: 5rem; }
+.setup-hero { margin-bottom: 1.5rem; }
+.setup-hero h1 { font-size: 1.6rem; margin: .75rem 0 .4rem; }
+.setup-hero p { color: var(--ink-2); max-width: 640px; margin: 0; }
+.setup-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 600; color: var(--brand-700); background: var(--brand-50); padding: .3rem .7rem; border-radius: 999px; }
+.setup-card .card-body { padding: 1.5rem 1.75rem; }
+.setup-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }
+.setup-card .card-footer { background: var(--line-2); border-top: 1px solid var(--line); padding: 1rem 1.75rem; }
+.org-form .setup-actions { padding-top: .5rem; }
+.setup-pending-icon { width: 3.5rem; height: 3.5rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #fbf3e2; color: #9a6a0c; font-size: 1.3rem; }
+
+.org-section { padding-bottom: 1.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.org-section:last-of-type { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.org-section-head { display: flex; gap: .85rem; align-items: flex-start; margin-bottom: 1rem; }
+.org-section-head h3 { font-size: 1rem; margin: 0; }
+.org-section-head p { margin: .15rem 0 0; color: var(--muted); font-size: .84rem; }
+.org-step { flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--brand); color: #fff; font-size: .8rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.org-section .form-group { max-width: none !important; }
+.org-section label { font-weight: 500; color: var(--ink); font-size: .86rem; }
+.org-section .form-text { color: var(--muted); font-size: .76rem; }
+.req { color: var(--danger); }
+.org-upload { display: flex; gap: .9rem; align-items: flex-start; }
+.org-upload-body { flex: 1; min-width: 0; }
+.org-preview { flex-shrink: 0; width: 84px; height: 84px; border: 1px dashed var(--line); border-radius: var(--radius-sm); background: var(--line-2); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--muted); font-size: 1.4rem; }
+.org-preview-wide { width: 140px; }
+.org-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.org-check { display: flex; align-items: center; gap: .4rem; font-size: .8rem !important; font-weight: 400 !important; margin-top: .4rem; }
+.org-letterhead-preview { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1.25rem; background: #fff; }
+@media (max-width: 575.98px) {
+    .setup-card .card-body, .setup-card .card-footer { padding-left: 1rem; padding-right: 1rem; }
+    .org-upload { flex-direction: column; }
+}
