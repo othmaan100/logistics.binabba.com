@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  APP_DIR: /home/binabbac/public_html/logistics.binabba.com
+  APP_DIR: /home/
   SERVER_PHP: /opt/cpanel/ea-php82/root/usr/bin/php
 
 jobs:
